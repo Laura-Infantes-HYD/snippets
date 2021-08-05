@@ -1,0 +1,11 @@
+@import "./style/reset";
+@import "./style/sections.scss";
+@import "./style/headers.scss";
+@import "./style/hljs-theme.scss";
+
+body {
+  margin: 0;
+  background-color: #282929;
+  color: #eee8d5;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
