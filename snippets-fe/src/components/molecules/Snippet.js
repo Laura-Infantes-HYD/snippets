@@ -53,7 +53,7 @@ const Snippet = ({ snippet: { id, name, snippet, tags, language } }) => {
   useEffect(() => {
     const hljs = require("highlight.js");
     setCode(hljs.highlight(snippet, { language }).value);
-  }, []);
+  });
 
   return (
     <SnippetListItem>

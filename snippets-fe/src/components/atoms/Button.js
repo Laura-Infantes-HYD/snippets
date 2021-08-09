@@ -17,7 +17,7 @@ let Button = ({ text, className = "", label, onClick, disabled = false }) => {
 Button = styled(Button)`
   padding: 1rem 1.25rem;
   background:  ${({ disabled, theme }) =>
-    disabled ? "whitesmoke" : theme.ctaPrimary}};
+    disabled ? theme.inactive : theme.ctaPrimary}};
   color: ${({ theme }) => theme.primaryLight}};
   letter-spacing: 1.5px;
   border: none;

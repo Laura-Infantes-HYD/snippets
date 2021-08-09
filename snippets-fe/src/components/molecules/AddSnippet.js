@@ -5,7 +5,6 @@ import CodeEditor from "../atoms/CodeEditor";
 import Input from "../atoms/Input";
 import { PositionToRight } from "../atoms/PositionToRight";
 import Select from "../atoms/Select";
-import Textarea from "../atoms/Textarea";
 import Modal from "../organisms/Modal";
 import TagsSelector from "./TagsSelector";
 

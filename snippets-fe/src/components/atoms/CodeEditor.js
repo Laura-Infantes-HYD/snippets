@@ -4,6 +4,7 @@ import AceEditor from "react-ace";
 const CodeEditor = ({ label, onChange }) => {
   return (
     <AceEditor
+      mode="JavaScript"
       name="UNIQUE_ID_OF_DIV"
       onChange={onChange}
       height="200px"

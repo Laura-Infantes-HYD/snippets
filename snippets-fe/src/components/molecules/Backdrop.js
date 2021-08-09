@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const Backdrop = styled.div`
+const Backdrop = (props) => {
+  return <BackdropWhite>{props.children}</BackdropWhite>;
+};
+
+const BackdropWhite = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -19,6 +23,4 @@ const Backdrop = styled.div`
   }
 `;
 
-export default (props) => {
-  return <Backdrop>{props.children}</Backdrop>;
-};
+export default Backdrop;

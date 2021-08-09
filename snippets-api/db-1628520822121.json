@@ -1,0 +1,39 @@
+{
+  "snippets": [
+    {
+      "name": "Fruits",
+      "snippet": "[\n  {\n    \"title\": \"apples\",\n    \"count\": [12000, 20000],\n    \"description\": {\"text\": \"...\", \"sensitive\": false}\n  },\n  {\n    \"title\": \"oranges\",\n    \"count\": [17500, null],\n    \"description\": {\"text\": \"...\", \"sensitive\": false}\n  }\n]",
+      "tags": [
+        "Backend"
+      ],
+      "language": "JSON",
+      "id": 6
+    },
+    {
+      "name": "PollForTrue",
+      "snippet": "/**\n * @param {query: string} - an elements selector\n * @param {timeOut: number} - time in ms after which the poller will stop looking for the element\n */\n\nexport default (cb, timeOutMs = 15000) => {\n    \n    if (typeof cb !== 'function') return new Error (`${cb} is not a function`);\n    if (typeof timeOutMs !== 'number') return new Error (`${timeOutMs} is not a number`);\n    \n    return new Promise((resolve) => {\n        \n        let timeOutCount = 0\n        let interval = setInterval(()=>timeOutCount = timeOutCount+100, 100)\n        \n        const wfelem = () => {\n            \n            if(timeOutCount > timeOutMs){ clearInterval(interval); return }\n            \n            (cb())\n                ? resolve(true)\n                : window.requestAnimationFrame(wfelem);\n\n        };\n\n        wfelem();\n    });\n\n}\n\n",
+      "tags": [
+        "CRO",
+        "Helper"
+      ],
+      "language": "JavaScript",
+      "id": 7
+    },
+    {
+      "name": "HTML radio buttons",
+      "snippet": "<p>Select a maintenance drone:</p>\n\n<div>\n  <input type=\"radio\" id=\"huey\" name=\"drone\" value=\"huey\"\n         checked>\n  <label for=\"huey\">Huey</label>\n</div>\n\n<div>\n  <input type=\"radio\" id=\"dewey\" name=\"drone\" value=\"dewey\">\n  <label for=\"dewey\">Dewey</label>\n</div>\n\n<div>\n  <input type=\"radio\" id=\"louie\" name=\"drone\" value=\"louie\">\n  <label for=\"louie\">Louie</label>\n</div>",
+      "tags": [
+        "Frontend"
+      ],
+      "language": "HTML",
+      "id": 8
+    }
+  ],
+  "tags": [
+    "html",
+    "JavaScript",
+    "JSX",
+    "Scss",
+    "PHP"
+  ]
+}

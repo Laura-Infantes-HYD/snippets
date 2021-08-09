@@ -5,6 +5,7 @@ module.exports = {
   primaryLightTransparent: "rgb(238, 232, 213, 0.5)",
   secondaryLight: "#000",
   danger: "#f96f57",
+  inactive: "whitesmoke",
 
   ctaPrimary: "#cc99cc",
   ctaSecondary: "aquamarine",
