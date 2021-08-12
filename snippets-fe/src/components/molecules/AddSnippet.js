@@ -15,28 +15,27 @@ const AddSnippet = () => {
     "PHP",
     "Typescript",
     "Python",
-    "C++",
     "JSON",
+    "java",
   ];
 
   const nameInputRef = useRef(null);
   const tagsFieldsetRef = useRef(null);
-  const languageSelectRef = useRef(null);
   const formRef = useRef(null);
 
   const [snippet, setSnippet] = useState("");
   const [addSnippet] = useAddSnippetMutation();
+  const [language, setLanguage] = useState("html");
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const { value: name } = nameInputRef.current;
-    const { value: language } = languageSelectRef.current;
-    const checkedTags = [...tagsFieldsetRef.current.children].reduce(
-      tagReducer,
-      []
-    );
+    const tagsFieldChildren = [...tagsFieldsetRef.current.children];
+    const checkedTags = tagsFieldChildren.reduce(tagReducer, []);
     const snippetObject = { name, snippet, tags: checkedTags, language };
+    console.log("snippetObject: ", snippetObject);
 
     addSnippet(snippetObject).then(() => {
       formRef.current.reset();
@@ -48,8 +47,6 @@ const AddSnippet = () => {
     tag.checked && arr.push(tag.value);
     return arr;
   };
-
-  const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
     setShowModal(true);
@@ -73,12 +70,16 @@ const AddSnippet = () => {
               forwardedRef={nameInputRef}
             />
 
-            <CodeEditor label="Snippet" onChange={setSnippet} />
-
             <Select
               label="Choose a language"
               options={languages}
-              forwardedRef={languageSelectRef}
+              onChange={setLanguage}
+            />
+
+            <CodeEditor
+              label="Snippet"
+              onChange={setSnippet}
+              language={language}
             />
 
             <TagsSelector forwardedRef={tagsFieldsetRef} />

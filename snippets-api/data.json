@@ -1,15 +1,6 @@
 {
   "snippets": [
     {
-      "name": "Fruits",
-      "snippet": "[\n  {\n    \"title\": \"apples\",\n    \"count\": [12000, 20000],\n    \"description\": {\"text\": \"...\", \"sensitive\": false}\n  },\n  {\n    \"title\": \"oranges\",\n    \"count\": [17500, null],\n    \"description\": {\"text\": \"...\", \"sensitive\": false}\n  }\n]",
-      "tags": [
-        "Backend"
-      ],
-      "language": "JSON",
-      "id": 6
-    },
-    {
       "name": "PollForTrue",
       "snippet": "/**\n * @param {query: string} - an elements selector\n * @param {timeOut: number} - time in ms after which the poller will stop looking for the element\n */\n\nexport default (cb, timeOutMs = 15000) => {\n    \n    if (typeof cb !== 'function') return new Error (`${cb} is not a function`);\n    if (typeof timeOutMs !== 'number') return new Error (`${timeOutMs} is not a number`);\n    \n    return new Promise((resolve) => {\n        \n        let timeOutCount = 0\n        let interval = setInterval(()=>timeOutCount = timeOutCount+100, 100)\n        \n        const wfelem = () => {\n            \n            if(timeOutCount > timeOutMs){ clearInterval(interval); return }\n            \n            (cb())\n                ? resolve(true)\n                : window.requestAnimationFrame(wfelem);\n\n        };\n\n        wfelem();\n    });\n\n}\n\n",
       "tags": [
@@ -27,6 +18,13 @@
       ],
       "language": "HTML",
       "id": 8
+    },
+    {
+      "name": "Bubble sort",
+      "snippet": "def bubble_sort(array):\n    n = len(array)\n\n    for i in range(n):\n        # Create a flag that will allow the function to\n        # terminate early if there's nothing left to sort\n        already_sorted = True\n\n        # Start looking at each item of the list one by one,\n        # comparing it with its adjacent value. With each\n        # iteration, the portion of the array that you look at\n        # shrinks because the remaining items have already been\n        # sorted.\n        for j in range(n - i - 1):\n            if array[j] > array[j + 1]:\n                # If the item you're looking at is greater than its\n                # adjacent value, then swap them\n                array[j], array[j + 1] = array[j + 1], array[j]\n\n                # Since you had to swap two elements,\n                # set the `already_sorted` flag to `False` so the\n                # algorithm doesn't finish prematurely\n                already_sorted = False\n\n        # If there were no swaps during the last iteration,\n        # the array is already sorted, and you can terminate\n        if already_sorted:\n            break\n\n    return array",
+      "tags": [],
+      "language": "Python",
+      "id": 9
     }
   ],
   "tags": [

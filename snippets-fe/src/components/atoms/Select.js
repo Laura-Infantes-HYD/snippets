@@ -13,12 +13,17 @@ const Selector = styled.div`
   }
 `;
 
-const Select = ({ label, forwardedRef, options }) => {
+const Select = ({ label, options, onChange }) => {
+  const handleChange = ({ target: { value } }) => {
+    onChange(value);
+  };
+
   return (
     <Selector>
       <label htmlFor={label}>{label} </label>
 
-      <select name={label} id={label} ref={forwardedRef}>
+      {/* <select name={label} id={label} ref={forwardedRef} > */}
+      <select name={label} id={label} onChange={handleChange}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

@@ -2,6 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import Checkbox from "../atoms/Checkbox";
 
+const Tags = styled.fieldset`
+  margin-top: ${({ theme }) => theme.spacerSm};
+  margin-bottom: ${({ theme }) => theme.spacerMd};
+
+  legend {
+    margin-bottom: ${({ theme }) => theme.spacerXs};
+  }
+
+  label {
+    margin-right: ${({ theme }) => theme.spacerXs};
+    cursor: pointer;
+  }
+`;
+
 const TagsSelector = ({ forwardedRef }) => {
   const hardCodedTags = [
     "CRO",
@@ -11,20 +25,6 @@ const TagsSelector = ({ forwardedRef }) => {
     "Backend",
     "Node",
   ];
-
-  const Tags = styled.fieldset`
-    margin-top: ${({ theme }) => theme.spacerSm};
-    margin-bottom: ${({ theme }) => theme.spacerMd};
-
-    legend {
-      margin-bottom: ${({ theme }) => theme.spacerXs};
-    }
-
-    label {
-      margin-right: ${({ theme }) => theme.spacerXs};
-      cursor: pointer;
-    }
-  `;
 
   return (
     <Tags ref={forwardedRef}>
