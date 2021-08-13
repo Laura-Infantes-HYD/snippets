@@ -58,7 +58,7 @@ const AddSnippet = () => {
   return (
     <>
       <PositionToRight>
-        <Button text="Add snippet" onClick={openModal} />
+        <Button btnType="ctaPrimary" text="Add snippet" onClick={openModal} />
       </PositionToRight>
 
       {showModal && (
@@ -85,7 +85,7 @@ const AddSnippet = () => {
             <TagsSelector forwardedRef={tagsFieldsetRef} />
 
             <PositionToRight>
-              <Button type="submit" text="Submit"></Button>
+              <Button btnType="ctaPrimary" type="submit" text="Submit"></Button>
             </PositionToRight>
           </form>
         </Modal>

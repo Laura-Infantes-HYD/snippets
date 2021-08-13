@@ -4,7 +4,10 @@
   "description": "An app to create code snippets",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:fe": "cd ./snippets-fe && npm run start",
+    "start:api": "cd ./snippets-api && npm run start",
+    "start": "npm-run-all --parallel start:fe start:api"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Laura-Infantes-HYD/snippets/issues"
   },
-  "homepage": "https://github.com/Laura-Infantes-HYD/snippets#readme"
+  "homepage": "https://github.com/Laura-Infantes-HYD/snippets#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }

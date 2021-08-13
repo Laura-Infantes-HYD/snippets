@@ -1,13 +1,11 @@
 import React from "react";
 
-const Textarea = ({ label, placeholder="",  forwardedRef}) => {
-
+const Textarea = ({ label, placeholder = "", forwardedRef }) => {
   return (
-    <>
-      <label>{label}
+    <label>
+      {label}
       <textarea placeholder={placeholder} ref={forwardedRef}></textarea>
-      </label>
-    </>
+    </label>
   );
 };
 

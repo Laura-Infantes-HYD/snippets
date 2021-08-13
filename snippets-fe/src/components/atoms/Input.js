@@ -11,16 +11,14 @@ const TextInput = styled.input`
 
 const Input = ({ label, placeholder = "", forwardedRef }) => {
   return (
-    <>
-      <label>
-        {label}
-        <TextInput
-          type="text"
-          placeholder={placeholder}
-          ref={forwardedRef}
-        ></TextInput>
-      </label>
-    </>
+    <label>
+      {label}
+      <TextInput
+        type="text"
+        placeholder={placeholder}
+        ref={forwardedRef}
+      ></TextInput>
+    </label>
   );
 };
 

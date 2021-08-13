@@ -4,7 +4,6 @@ import { useRemoveSnippetMutation } from "../../services/snippets";
 import Modal from "../organisms/Modal";
 import Tag from "../atoms/Tag";
 import DeleteSnippetConfirmation from "./DeleteSnippetConfirmation";
-import DangerBtn from "../atoms/DangerBtn";
 import Button from "../atoms/Button";
 
 const SnippetListItem = styled.li`
@@ -37,12 +36,12 @@ const SnippetListItem = styled.li`
 
 const Snippet = ({ snippet: { id, name, snippet, tags, language } }) => {
   const [removeSnippet] = useRemoveSnippetMutation();
-  const deleteSnippet = () => {
-    removeSnippet(id);
-  };
-
   const [code, setCode] = useState("");
-  const [deleteModalOpened, setDeleteModalOpened] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteSnippet = () => {
+    removeSnippet(id).then(() => setDeleting(false));
+  };
 
   useEffect(() => {
     const hljs = require("highlight.js");
@@ -68,22 +67,18 @@ const Snippet = ({ snippet: { id, name, snippet, tags, language } }) => {
         }}
       ></pre>
 
-      <DangerBtn
+      <Button
+        btnType="danger"
         className="btn--float-right"
-        onClick={() => {
-          setDeleteModalOpened(true);
-        }}
+        onClick={() => setDeleting(true)}
         text="Remove"
       />
 
-      {deleteModalOpened && (
-        <Modal
-          closeModal={() => {
-            setDeleteModalOpened(false);
-          }}
-        >
-          <DeleteSnippetConfirmation deleteSnippet={deleteSnippet} />
-        </Modal>
+      {deleting && (
+        <DeleteSnippetConfirmation
+          deleting={setDeleting}
+          deleteSnippet={deleteSnippet}
+        />
       )}
     </SnippetListItem>
   );

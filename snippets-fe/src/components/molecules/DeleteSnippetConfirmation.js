@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import DangerBtn from "../atoms/DangerBtn";
+import Button from "../atoms/Button";
 import { PositionToRight } from "../atoms/PositionToRight";
+import Modal from "../organisms/Modal";
 
 const PaddedP = styled.p`
-  padding: 1rem 0;
+  padding: 2rem 0;
 `;
 
-const DeleteSnippetConfirmation = ({ deleteSnippet }) => {
+const DeleteSnippetConfirmation = ({ deleteSnippet, deleting }) => {
   return (
-    <div>
+    <Modal closeModal={() => deleting(false)}>
       <PaddedP>Permanently remove snippet?</PaddedP>
       <PositionToRight>
-        <DangerBtn onClick={deleteSnippet} text="Remove" />
+        <Button btnType="danger" onClick={deleteSnippet} text="Remove" />
       </PositionToRight>
-    </div>
+    </Modal>
   );
 };
 
