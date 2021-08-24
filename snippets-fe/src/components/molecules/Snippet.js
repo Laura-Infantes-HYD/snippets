@@ -1,46 +1,57 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRemoveSnippetMutation } from "../../services/snippets";
-import Modal from "../organisms/Modal";
+import {
+  useRemoveSnippetMutation,
+  useUpdateSnippetMutation,
+} from "../../services/snippets";
 import Tag from "../atoms/Tag";
 import DeleteSnippetConfirmation from "./DeleteSnippetConfirmation";
 import Button from "../atoms/Button";
+import Heart from "../atoms/Heart";
 
 const SnippetListItem = styled.li`
   margin-bottom: ${({ theme }) => theme.spacerLg};
   margin-top: ${({ theme }) => theme.spacerLg};
   position: relative;
-
   h3,
   p {
     display: inline-block;
   }
-
   h3 {
     margin-right: ${({ theme }) => theme.spacerXs};
   }
-
   p {
     font-style: italic;
   }
-
   pre {
     margin-bottom: ${({ theme }) => theme.spacerSm};
   }
-
   ul {
     margin-top: ${({ theme }) => theme.spacerXs};
     margin-bottom: ${({ theme }) => theme.spacerSm};
   }
 `;
 
-const Snippet = ({ snippet: { id, name, snippet, tags, language } }) => {
+const SnippetActions = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  button {
+    margin-left: ${({ theme }) => theme.spacerXs};
+  }
+`;
+
+const Snippet = ({
+  snippet: { id, name, snippet, tags, language, isFavourite = false },
+}) => {
   const [removeSnippet] = useRemoveSnippetMutation();
+  const [updateSnippet, { isLoading: isUpdating }] = useUpdateSnippetMutation();
   const [code, setCode] = useState("");
-  const [deleting, setDeleting] = useState(false);
+  const [deletingConfirmation, setDeletingConfirmation] = useState(false);
 
   const deleteSnippet = () => {
-    removeSnippet(id).then(() => setDeleting(false));
+    removeSnippet(id).then(() => setDeletingConfirmation(false));
   };
 
   useEffect(() => {
@@ -65,18 +76,35 @@ const Snippet = ({ snippet: { id, name, snippet, tags, language } }) => {
         dangerouslySetInnerHTML={{
           __html: code,
         }}
-      ></pre>
-
-      <Button
-        btnType="danger"
-        className="btn--float-right"
-        onClick={() => setDeleting(true)}
-        text="Remove"
       />
 
-      {deleting && (
+      <SnippetActions>
+        <Button
+          btnType="danger"
+          onClick={() => setDeletingConfirmation(true)}
+          text="Remove"
+        />
+        <Button
+          btnType="ctaSecondary"
+          //onClick={}
+          text="Edit"
+        />
+
+        <Button
+          btnType={isFavourite ? "ctaTertiary" : "ctaInactive"}
+          onClick={() => {
+            updateSnippet({ id, isFavourite: !isFavourite });
+          }}
+          text=""
+          label="Add to favourites"
+        >
+          <Heart />
+        </Button>
+      </SnippetActions>
+
+      {deletingConfirmation && (
         <DeleteSnippetConfirmation
-          deleting={setDeleting}
+          deleting={setDeletingConfirmation}
           deleteSnippet={deleteSnippet}
         />
       )}

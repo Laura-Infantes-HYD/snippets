@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-let Button = ({ text, className = "", label, onClick, disabled = false }) => {
+let Button = ({
+  text,
+  className = "",
+  label,
+  onClick,
+  disabled = false,
+  children,
+}) => {
   return (
     <button
       aria-label={label || text}
@@ -9,7 +16,7 @@ let Button = ({ text, className = "", label, onClick, disabled = false }) => {
       onClick={onClick}
       disabled={disabled}
     >
-      {text}
+      {text || children}
     </button>
   );
 };
@@ -23,12 +30,6 @@ Button = styled(Button)`
   border: none;
   border-radius: 0.5rem;
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")}};
-
-  &.btn--float-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
 `;
 
 export default Button;

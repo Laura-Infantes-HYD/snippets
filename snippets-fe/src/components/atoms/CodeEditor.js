@@ -11,7 +11,6 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 const CodeEditor = ({ onChange, language }) => {
-  console.log("language.toLowerCase(): ", language);
   return (
     <AceEditor
       placeholder="Type or paste your code"

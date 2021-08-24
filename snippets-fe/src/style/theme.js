@@ -8,7 +8,9 @@ module.exports = {
   inactive: "whitesmoke",
 
   ctaPrimary: "#cc99cc",
-  ctaSecondary: "aquamarine",
+  ctaSecondary: "#8abeb7",
+  ctaTertiary: "#e887ae",
+  ctaInactive: "#a8a292",
   ctaDanger: "#f99157",
 
   spacerXs: ".5rem",
