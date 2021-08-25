@@ -6,14 +6,10 @@ import SnippetList from "../organisms/SnippetList";
 
 const Home = () => {
   return (
-    <>
-      <Header />
-
-      <main>
-        <AddSnippet />
-        <SnippetList />
-      </main>
-    </>
+    <main>
+      <AddSnippet />
+      <SnippetList />
+    </main>
   );
 };
 

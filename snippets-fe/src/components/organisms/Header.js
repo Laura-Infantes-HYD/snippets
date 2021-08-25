@@ -1,16 +1,27 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Navigation from "../molecules/Navigation";
+
+const MainHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3rem 0;
+`;
 
 const Logo = styled.div`
-  padding: 3rem 0 0;
   font-size: 2.25rem;
 `;
 
 const Header = () => {
   return (
-    <header className="App-header">
-      <Logo>My Snippets</Logo>
-    </header>
+    <MainHeader className="App-header">
+      <Logo>
+        <Link to="/">My Snippets</Link>
+      </Logo>
+      <Navigation />
+    </MainHeader>
   );
 };
 

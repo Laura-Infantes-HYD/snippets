@@ -8,7 +8,8 @@
         "Helper"
       ],
       "language": "JavaScript",
-      "id": 7
+      "id": 7,
+      "isFavourite": true
     },
     {
       "name": "HTML radio buttons",
@@ -17,7 +18,8 @@
         "Frontend"
       ],
       "language": "HTML",
-      "id": 8
+      "id": 8,
+      "isFavourite": false
     },
     {
       "name": "Bubble sort",
@@ -26,7 +28,8 @@
         "Helper"
       ],
       "language": "Python",
-      "id": 9
+      "id": 9,
+      "isFavourite": false
     }
   ],
   "tags": [
@@ -35,5 +38,14 @@
     "JSX",
     "Scss",
     "PHP"
+  ],
+  "languages": [
+    "HTML",
+    "JavaScript",
+    "PHP",
+    "Typescript",
+    "Python",
+    "JSON",
+    "java"
   ]
 }
