@@ -1,9 +1,10 @@
 import React from "react";
+import FavouritesList from "../organisms/FavouritestList";
 
 const Favourites = () => {
   return (
     <main>
-      <div>Welcome to favourites</div>
+      <FavouritesList />
     </main>
   );
 };

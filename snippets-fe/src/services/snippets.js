@@ -6,6 +6,11 @@ const endpoints = (builder) => ({
     providesTags: ["Snippets"],
   }),
 
+  getFavouriteSnippets: builder.query({
+    query: () => "snippets?isFavourite=true",
+    providesTags: ["Favourites"],
+  }),
+
   addSnippet: builder.mutation({
     query: (body) => ({
       url: `snippets`,
@@ -29,7 +34,7 @@ const endpoints = (builder) => ({
       method: "PATCH",
       body: patch,
     }),
-    invalidatesTags: ["Snippets"],
+    invalidatesTags: ["Snippets", "Favourites"],
   }),
 
   getLanguages: builder.query({
@@ -48,7 +53,7 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Snippets", "Languages"],
+  tagTypes: ["Snippets", "Languages", "Favourites"],
 
   endpoints: endpoints,
 });
@@ -61,4 +66,5 @@ export const {
   useRemoveSnippetMutation,
   useGetLanguagesQuery,
   useUpdateSnippetMutation,
+  useGetFavouriteSnippetsQuery,
 } = baseApi;

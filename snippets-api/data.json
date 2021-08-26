@@ -9,7 +9,7 @@
       ],
       "language": "JavaScript",
       "id": 7,
-      "isFavourite": true
+      "isFavourite": false
     },
     {
       "name": "HTML radio buttons",
@@ -29,7 +29,7 @@
       ],
       "language": "Python",
       "id": 9,
-      "isFavourite": false
+      "isFavourite": true
     }
   ],
   "tags": [

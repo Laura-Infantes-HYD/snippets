@@ -3,11 +3,13 @@ import AddSnippet from "../molecules/AddSnippet";
 
 import Header from "../organisms/Header";
 import SnippetList from "../organisms/SnippetList";
+import SnippetListActions from "../organisms/SnippetListActions";
 
 const Home = () => {
   return (
     <main>
-      <AddSnippet />
+      {/* <AddSnippet /> */}
+      <SnippetListActions />
       <SnippetList />
     </main>
   );

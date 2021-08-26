@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Backdrop from "../molecules/Backdrop";
 import ModalBox from "../molecules/ModalBox";
-import AddSnippet from "../molecules/AddSnippet";
 
 const Modal = (props) => {
   const modalRoot = document.getElementById("modal-root");

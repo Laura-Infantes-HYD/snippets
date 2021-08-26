@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   useAddSnippetMutation,
   useGetLanguagesQuery,
@@ -9,16 +9,21 @@ import Input from "../atoms/Input";
 import { PositionToRight } from "../atoms/PositionToRight";
 import Select from "../atoms/Select";
 import Modal from "../organisms/Modal";
-import TagsSelector from "./TagsSelector";
+import TagsSelector from "../molecules/TagsSelector";
 
-const AddSnippet = () => {
+const AddSnippet = ({ show }) => {
   const nameInputRef = useRef(null);
   const tagsFieldsetRef = useRef(null);
   const formRef = useRef(null);
 
   const [snippet, setSnippet] = useState("");
   const [language, setLanguage] = useState("html");
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(show);
+
+  // useEffect(() => {
+  //
+  //   setShowModal(show);
+  // }, [show]);
 
   const [addSnippet] = useAddSnippetMutation();
   const { data: languages = [] } = useGetLanguagesQuery();
@@ -37,26 +42,17 @@ const AddSnippet = () => {
 
     addSnippet(snippetObject).then(() => {
       formRef.current.reset();
-      setShowModal(false);
+      show(false);
     });
   };
 
   return (
     <>
-      <PositionToRight>
-        <Button
-          btnType="ctaPrimary"
-          text="Add snippet"
-          onClick={() => {
-            setShowModal(true);
-          }}
-        />
-      </PositionToRight>
-
-      {showModal && (
+      {
+        //showModal && (
         <Modal
           closeModal={() => {
-            setShowModal(false);
+            show(false);
           }}
         >
           <form onSubmit={handleSubmit} ref={formRef}>
@@ -85,7 +81,8 @@ const AddSnippet = () => {
             </PositionToRight>
           </form>
         </Modal>
-      )}
+        // )
+      }
     </>
   );
 };
