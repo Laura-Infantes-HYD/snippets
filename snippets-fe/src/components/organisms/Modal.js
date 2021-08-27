@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import Backdrop from "../molecules/Backdrop";
 import ModalBox from "../molecules/ModalBox";

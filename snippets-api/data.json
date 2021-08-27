@@ -36,6 +36,7 @@
       "name": "Test",
       "snippet": "{\"test\": \"this is an edited test snippet\"}",
       "tags": [
+        "Helper",
         "Backend"
       ],
       "language": "JSON",

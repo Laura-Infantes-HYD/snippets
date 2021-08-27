@@ -6,6 +6,10 @@ const endpoints = (builder) => ({
     providesTags: ["Snippets"],
   }),
 
+  findSnippets: builder.query({
+    query: (query) => `snippets?q=${query}`,
+  }),
+
   getFavouriteSnippets: builder.query({
     query: () => "snippets?isFavourite=true",
     providesTags: ["Favourites"],
@@ -67,4 +71,5 @@ export const {
   useGetLanguagesQuery,
   useUpdateSnippetMutation,
   useGetFavouriteSnippetsQuery,
+  useFindSnippetsQuery,
 } = baseApi;

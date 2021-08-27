@@ -9,7 +9,13 @@ const TextInput = styled.input`
   margin-top: ${({ theme }) => theme.spacerXs};
 `;
 
-const Input = ({ label, placeholder = "", forwardedRef, defaultValue }) => {
+const Input = ({
+  label,
+  placeholder = "",
+  forwardedRef,
+  defaultValue = "",
+  onChange = () => {},
+}) => {
   return (
     <label>
       {label}
@@ -18,6 +24,9 @@ const Input = ({ label, placeholder = "", forwardedRef, defaultValue }) => {
         placeholder={placeholder}
         ref={forwardedRef}
         defaultValue={defaultValue}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
       ></TextInput>
     </label>
   );

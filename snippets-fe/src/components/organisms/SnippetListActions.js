@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Button from "../atoms/Button";
 import { PositionToRight } from "../atoms/PositionToRight";
 import AddSnippet from "../molecules/AddSnippet";
+import SearchBar from "../molecules/SearchBar";
 
-const SnippetListActions = () => {
+const SnippetListActions = ({ onSearch }) => {
   const [showAddSnippet, setShowAddSnippet] = useState(false);
 
   return (
@@ -20,6 +21,7 @@ const SnippetListActions = () => {
       {showAddSnippet && (
         <AddSnippet show={setShowAddSnippet} action="create" />
       )}
+      <SearchBar onSearch={onSearch} />
     </>
   );
 };
