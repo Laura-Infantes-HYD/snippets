@@ -1,16 +1,15 @@
 import React from "react";
-import AddSnippet from "../molecules/AddSnippet";
-
-import Header from "../organisms/Header";
+import { useGetSnippetsQuery } from "../../services/snippets";
 import SnippetList from "../organisms/SnippetList";
 import SnippetListActions from "../organisms/SnippetListActions";
 
 const Home = () => {
+  const { data = [], error, isLoading } = useGetSnippetsQuery();
+  const searchResults = [];
   return (
     <main>
-      {/* <AddSnippet /> */}
       <SnippetListActions />
-      <SnippetList />
+      <SnippetList snippets={data} error={error} isLoading={isLoading} />
     </main>
   );
 };

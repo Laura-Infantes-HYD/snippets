@@ -10,7 +10,7 @@ import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-const CodeEditor = ({ onChange, language }) => {
+const CodeEditor = ({ onChange, language, snippet }) => {
   return (
     <AceEditor
       placeholder="Type or paste your code"
@@ -22,6 +22,7 @@ const CodeEditor = ({ onChange, language }) => {
       showPrintMargin={true}
       showGutter={true}
       highlightActiveLine={true}
+      defaultValue={snippet}
       setOptions={{
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true,

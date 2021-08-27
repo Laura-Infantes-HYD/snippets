@@ -1,13 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Checkbox = ({ label, placeholder="" }) => {
+const Checkbox = ({ label, checked = false }) => {
+  return (
+    <>
+      <input
+        type="checkbox"
+        value={label}
+        id={label}
+        defaultChecked={checked}
+      ></input>
+      <label htmlFor={label}>{label}</label>
+    </>
+  );
+};
 
-    return (
-        <>
-        <input type="checkbox" value={label} id={label} placeholder={placeholder}></input>
-        <label htmlFor={label} >{label}</label>
-      </>
-    )
-}
-
-export default Checkbox
+export default Checkbox;

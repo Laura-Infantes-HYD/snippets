@@ -1,15 +1,15 @@
 {
   "snippets": [
     {
-      "name": "PollForTrue",
-      "snippet": "/**\n * @param {query: string} - an elements selector\n * @param {timeOut: number} - time in ms after which the poller will stop looking for the element\n */\n\nexport default (cb, timeOutMs = 15000) => {\n    \n    if (typeof cb !== 'function') return new Error (`${cb} is not a function`);\n    if (typeof timeOutMs !== 'number') return new Error (`${timeOutMs} is not a number`);\n    \n    return new Promise((resolve) => {\n        \n        let timeOutCount = 0\n        let interval = setInterval(()=>timeOutCount = timeOutCount+100, 100)\n        \n        const wfelem = () => {\n            \n            if(timeOutCount > timeOutMs){ clearInterval(interval); return }\n            \n            (cb())\n                ? resolve(true)\n                : window.requestAnimationFrame(wfelem);\n\n        };\n\n        wfelem();\n    });\n\n}\n\n",
+      "name": "Poller",
+      "snippet": "/**\n * @param {query: string} - an elements selector\n * @param {timeOut: number} - time in ms after which the poller will stop looking for the element\n */\n\nexport default (cb, timeOutMs = 15000) => {\n    \n    if (typeof cb !== 'function') return new Error (`${cb} is not a function`);\n    if (typeof timeOutMs !== 'number') return new Error (`${timeOutMs} is not a number`);\n    \n    return new Promise((resolve) => {\n        \n        let timeOutCount = 0\n        let interval = setInterval(()=>timeOutCount = timeOutCount+100, 100)\n        \n        const wfelem = () => {\n            \n            if(timeOutCount > timeOutMs){ clearInterval(interval); return }\n            \n            (cb())\n                ? resolve(true)\n                : window.requestAnimationFrame(wfelem);\n\n        };\n\n        wfelem();\n    });\n}\n\n",
       "tags": [
         "CRO",
         "Helper"
       ],
       "language": "JavaScript",
       "id": 7,
-      "isFavourite": true
+      "isFavourite": false
     },
     {
       "name": "HTML radio buttons",
@@ -19,16 +19,27 @@
       ],
       "language": "HTML",
       "id": 8,
+      "isFavourite": true
+    },
+    {
+      "name": "Qsa",
+      "snippet": "const qsa = (query)=>[ ...document.querySelectorAll(query) ]",
+      "tags": [
+        "CRO",
+        "Helper"
+      ],
+      "language": "JavaScript",
+      "id": 9,
       "isFavourite": false
     },
     {
-      "name": "Bubble sort",
-      "snippet": "def bubble_sort(array):\n    n = len(array)\n\n    for i in range(n):\n        already_sorted = True\n\n        for j in range(n - i - 1):\n            if array[j] > array[j + 1]:\n                array[j], array[j + 1] = array[j + 1], array[j]\n\n                already_sorted = False\n\n        if already_sorted:\n            break\n\n    return array",
+      "name": "Test",
+      "snippet": "{\"test\": \"this is an edited test snippet\"}",
       "tags": [
-        "Helper"
+        "Backend"
       ],
-      "language": "Python",
-      "id": 9,
+      "language": "JSON",
+      "id": 10,
       "isFavourite": true
     }
   ],

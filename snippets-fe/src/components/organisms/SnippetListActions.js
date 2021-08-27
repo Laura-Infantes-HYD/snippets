@@ -17,7 +17,9 @@ const SnippetListActions = () => {
           }}
         />
       </PositionToRight>
-      {showAddSnippet && <AddSnippet show={setShowAddSnippet} />}
+      {showAddSnippet && (
+        <AddSnippet show={setShowAddSnippet} action="create" />
+      )}
     </>
   );
 };

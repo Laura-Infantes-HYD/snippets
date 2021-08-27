@@ -19,7 +19,6 @@ const SnippetActionsWrap = styled.div`
 `;
 
 const SnippetActions = ({ snippet, favouritePage }) => {
-  console.log("snippet: ", snippet);
   const { id, isFavourite } = snippet;
   const [removeSnippet] = useRemoveSnippetMutation();
   const [updateSnippet] = useUpdateSnippetMutation();
@@ -66,7 +65,13 @@ const SnippetActions = ({ snippet, favouritePage }) => {
           deleteSnippet={deleteSnippet}
         />
       )}
-      {showEditingModal && <AddSnippet show={setShowEditingModal} />}
+      {showEditingModal && (
+        <AddSnippet
+          show={setShowEditingModal}
+          snippet={snippet}
+          action="update"
+        />
+      )}
     </>
   );
 };

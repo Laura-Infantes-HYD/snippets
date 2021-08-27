@@ -16,7 +16,7 @@ const Tags = styled.fieldset`
   }
 `;
 
-const TagsSelector = ({ forwardedRef }) => {
+const TagsSelector = ({ forwardedRef, initiallySelected }) => {
   const hardCodedTags = [
     "CRO",
     "Helper",
@@ -30,7 +30,11 @@ const TagsSelector = ({ forwardedRef }) => {
     <Tags ref={forwardedRef}>
       <legend>Tags</legend>
       {hardCodedTags.map((tag) => (
-        <Checkbox key={tag} label={tag} />
+        <Checkbox
+          key={tag}
+          label={tag}
+          checked={initiallySelected.includes(tag)}
+        />
       ))}
     </Tags>
   );

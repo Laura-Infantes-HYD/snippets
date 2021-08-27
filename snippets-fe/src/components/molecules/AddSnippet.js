@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import {
   useAddSnippetMutation,
   useGetLanguagesQuery,
+  useUpdateSnippetMutation,
 } from "../../services/snippets";
 import Button from "../atoms/Button";
 import CodeEditor from "../atoms/CodeEditor";
@@ -11,45 +12,57 @@ import Select from "../atoms/Select";
 import Modal from "../organisms/Modal";
 import TagsSelector from "../molecules/TagsSelector";
 
-const AddSnippet = ({ show }) => {
+const AddSnippet = ({ show, action = "create", snippet }) => {
   const nameInputRef = useRef(null);
   const tagsFieldsetRef = useRef(null);
   const formRef = useRef(null);
-
-  const [snippet, setSnippet] = useState("");
-  const [language, setLanguage] = useState("html");
-  //const [showModal, setShowModal] = useState(show);
-
-  // useEffect(() => {
-  //
-  //   setShowModal(show);
-  // }, [show]);
-
+  const [newSnippet, setNewSnippet] = useState(snippet?.snippet || "");
+  const [language, setLanguage] = useState(snippet?.language || "html");
   const [addSnippet] = useAddSnippetMutation();
+  const [updateSnippet] = useUpdateSnippetMutation();
   const { data: languages = [] } = useGetLanguagesQuery();
 
+  const reset = () => {
+    formRef.current.reset();
+    show(false);
+  };
+
+  const getCheckedTags = () => {
+    const tagsFieldChildren = [...tagsFieldsetRef.current.children];
+    const checkedTags = tagsFieldChildren
+      .filter((tag) => tag.checked)
+      .map((tag) => tag.value);
+    return checkedTags;
+  };
+
+  const buildSnippetFromInput = () => {
+    const { value: name } = nameInputRef.current;
+
+    return {
+      name,
+      snippet: newSnippet,
+      tags: getCheckedTags(),
+      language,
+    };
+  };
+
   const handleSubmit = (e) => {
+    const snippetObject = buildSnippetFromInput();
     e.preventDefault();
 
-    const { value: name } = nameInputRef.current;
-    const tagsFieldChildren = [...tagsFieldsetRef.current.children];
-    const reduceTags = (arr, tag) => {
-      tag.checked && arr.push(tag.value);
-      return arr;
-    };
-    const checkedTags = tagsFieldChildren.reduce(reduceTags, []);
-    const snippetObject = { name, snippet, tags: checkedTags, language };
-
-    addSnippet(snippetObject).then(() => {
-      formRef.current.reset();
-      show(false);
-    });
+    switch (action) {
+      case "update":
+        updateSnippet({ id: snippet.id, ...snippetObject }).then(reset);
+        break;
+      case "create":
+        addSnippet(snippetObject).then(reset);
+        break;
+    }
   };
 
   return (
     <>
       {
-        //showModal && (
         <Modal
           closeModal={() => {
             show(false);
@@ -60,28 +73,29 @@ const AddSnippet = ({ show }) => {
               label="Name"
               placeholder="Give your snippet a name"
               forwardedRef={nameInputRef}
+              defaultValue={snippet?.name || ""}
             />
-
             <Select
               label="Choose a language"
               options={languages}
               onChange={setLanguage}
+              selected={language}
             />
-
             <CodeEditor
               label="Snippet"
-              onChange={setSnippet}
+              onChange={setNewSnippet}
               language={language}
+              snippet={snippet?.snippet || ""}
             />
-
-            <TagsSelector forwardedRef={tagsFieldsetRef} />
-
+            <TagsSelector
+              forwardedRef={tagsFieldsetRef}
+              initiallySelected={snippet?.tags || []}
+            />
             <PositionToRight>
               <Button btnType="ctaPrimary" type="submit" text="Submit"></Button>
             </PositionToRight>
           </form>
         </Modal>
-        // )
       }
     </>
   );

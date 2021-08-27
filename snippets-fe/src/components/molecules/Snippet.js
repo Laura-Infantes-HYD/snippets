@@ -54,7 +54,7 @@ const Snippet = ({
           }}
         />
         <SnippetActions
-          snippet={{ id, isFavourite }}
+          snippet={{ id, name, snippet, tags, language, isFavourite }}
           favouritePage={favouritePage}
         />
       </SnippetListItem>

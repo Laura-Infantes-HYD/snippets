@@ -13,7 +13,7 @@ const Selector = styled.div`
   }
 `;
 
-const Select = ({ label, options, onChange }) => {
+const Select = ({ label, options, onChange, selected }) => {
   const handleChange = ({ target: { value } }) => {
     onChange(value);
   };
@@ -22,7 +22,12 @@ const Select = ({ label, options, onChange }) => {
     <Selector>
       <label htmlFor={label}>{label} </label>
 
-      <select name={label} id={label} onChange={handleChange}>
+      <select
+        name={label}
+        id={label}
+        onChange={handleChange}
+        defaultValue={selected}
+      >
         {options.map((option) => (
           <option key={option} value={option}>
             {option}
