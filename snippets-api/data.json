@@ -19,7 +19,7 @@
       ],
       "language": "HTML",
       "id": 8,
-      "isFavourite": true
+      "isFavourite": false
     },
     {
       "name": "Qsa",
@@ -41,7 +41,7 @@
       ],
       "language": "JSON",
       "id": 10,
-      "isFavourite": true
+      "isFavourite": false
     }
   ],
   "tags": [
