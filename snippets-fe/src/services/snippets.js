@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const endpoints = (builder) => ({
   getSnippets: builder.query({
     query: () => ({
-      url: "snippets?_start=0&_end=3"}),
-      responseHandler: (response) => response.headers.get("X-Total-Count"), 
+      url: `snippets`,
+    }),
     providesTags: ["Snippets"],
   }),
 
@@ -53,14 +53,13 @@ const endpoints = (builder) => ({
 export const baseApi = createApi({
   reducerPath: "snippetsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: "http://localhost:8000",
     prepareHeaders(headers) {
       headers.set("content-type", "application/json");
       return headers;
     },
   }),
   tagTypes: ["Snippets", "Languages", "Favourites"],
-
   endpoints: endpoints,
 });
 
