@@ -4,7 +4,7 @@ import { PositionToRight } from "../atoms/PositionToRight";
 import AddSnippet from "../molecules/AddSnippet";
 import SearchBar from "../molecules/SearchBar";
 
-const SnippetListActions = ({ onSearch }) => {
+const SnippetListActions = ({ onSearch, searchValue }) => {
   const [showAddSnippet, setShowAddSnippet] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const SnippetListActions = ({ onSearch }) => {
       {showAddSnippet && (
         <AddSnippet show={setShowAddSnippet} action="create" />
       )}
-      <SearchBar onSearch={onSearch} />
+      <SearchBar onSearch={onSearch} searchValue={searchValue} />
     </>
   );
 };

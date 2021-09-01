@@ -25,6 +25,7 @@ const Input = ({
         ref={forwardedRef}
         defaultValue={defaultValue}
         onChange={(e) => {
+          e.preventDefault();
           onChange(e.target.value);
         }}
       ></TextInput>

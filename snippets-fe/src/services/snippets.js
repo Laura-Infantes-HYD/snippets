@@ -2,14 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const endpoints = (builder) => ({
   getSnippets: builder.query({
-    query: () => ({
-      url: `snippets`,
+    query: (query, tag) => ({
+      url: `snippets?q=${query}`,
     }),
     providesTags: ["Snippets"],
-  }),
-
-  findSnippets: builder.query({
-    query: (query) => `snippets?q=${query}`,
   }),
 
   getFavouriteSnippets: builder.query({

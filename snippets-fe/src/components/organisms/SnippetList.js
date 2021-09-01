@@ -6,27 +6,19 @@ import {
   useGetSnippetsQuery,
 } from "../../services/snippets";
 import SnippetListActions from "./SnippetListActions";
-import { useLocation } from "react-router-dom";
+import useQuery from "../../hooks/useQuey";
 
 const SnippetList = () => {
-  const [searchTerm, setSearchTerm] = useState(null);
-  const { data = [], error, isLoading } = useGetSnippetsQuery();
-  console.log("data: ", data);
-  // const { data: foundSnippets } = useFindSnippetsQuery(searchTerm);
-  // const snipeptsToRender = searchTerm ? foundSnippets : snippets.docs;
-
-  const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-  };
-
-  const query = useQuery();
+  const query = useQuery("q");
+  const [searchTerm, setSearchTerm] = useState(query || "");
+  const { data = [], error, isLoading } = useGetSnippetsQuery(searchTerm);
 
   if (isLoading) return <Loader />;
   if (error) return error.message;
 
   return (
     <>
-      <SnippetListActions onSearch={setSearchTerm} />
+      <SnippetListActions onSearch={setSearchTerm} searchValue={searchTerm} />
       <ul>
         {data.docs.map((snippet) => (
           <Snippet key={snippet.id} snippet={snippet}></Snippet>
