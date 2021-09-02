@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useLayoutEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useRef, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import useQuery from "../../hooks/useQuey";
+import useQuery from "../../hooks/useQuery";
 
 const Search = styled.div`
   display: flex;
