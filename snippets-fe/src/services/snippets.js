@@ -10,7 +10,7 @@ const endpoints = (builder) => ({
   }),
 
   getFavouriteSnippets: builder.query({
-    query: () => "snippets?isFavourite=true",
+    query: ({ page = 1 }) => `snippets?isFavourite=true&page=${page}`,
     providesTags: ["Favourites"],
   }),
 
