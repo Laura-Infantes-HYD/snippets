@@ -7,7 +7,8 @@ import Pagination from "../molecules/Pagination";
 import useQuery from "../../hooks/useQuery";
 
 const FavouritesList = () => {
-  const pageQuery = useQuery("page");
+  const pageQuery = useQuery("page") || 1;
+  console.log("pageQuery: ", pageQuery);
   const [page, setPage] = useState(pageQuery);
 
   useEffect(() => {
