@@ -31,7 +31,7 @@ border-radius: 0.5rem;
 cursor: pointer}
 `;
 
-const SearchBar = ({ onSearch, searchValue }) => {
+const SearchBar = ({ onSearch, searchValue = "" }) => {
   const inputRef = useRef(null);
   const tagsQuery = useQuery("tags");
   const linkRef = useRef(null);

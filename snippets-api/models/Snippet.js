@@ -19,6 +19,11 @@ const snippetSchema = new mongoose.Schema({
     required: true,
     default: [],
   },
+  isFavourite: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 snippetSchema.plugin(paginate);

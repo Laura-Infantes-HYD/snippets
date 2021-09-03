@@ -19,13 +19,13 @@ const SnippetActionsWrap = styled.div`
 `;
 
 const SnippetActions = ({ snippet, favouritePage }) => {
-  const { id, isFavourite } = snippet;
+  const { _id, isFavourite } = snippet;
   const [removeSnippet] = useRemoveSnippetMutation();
   const [updateSnippet] = useUpdateSnippetMutation();
   const [showDeletingModal, setShowDeletingModal] = useState(false);
   const [showEditingModal, setShowEditingModal] = useState(false);
   const deleteSnippet = () => {
-    removeSnippet(id).then(() => setShowDeletingModal(false));
+    removeSnippet(_id).then(() => setShowDeletingModal(false));
   };
 
   return (
@@ -48,7 +48,7 @@ const SnippetActions = ({ snippet, favouritePage }) => {
           <Button
             btnType={isFavourite ? "ctaTertiary" : "ctaInactive"}
             onClick={() => {
-              updateSnippet({ id, isFavourite: !isFavourite });
+              updateSnippet({ _id, isFavourite: !isFavourite });
             }}
             text=""
             label="Add to favourites"

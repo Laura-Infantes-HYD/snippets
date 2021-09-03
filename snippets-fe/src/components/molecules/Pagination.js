@@ -36,7 +36,6 @@ const PageNavigation = styled.nav`
 
 const Pagination = ({ data, q, tags }) => {
   const { hasNextPage, hasPrevPage, page, totalPages } = data;
-  console.log("page: ", page);
   const pageNumbers = [];
 
   const buildLocationObj = (page) => ({

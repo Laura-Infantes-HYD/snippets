@@ -52,7 +52,7 @@ const AddSnippet = ({ show, action = "create", snippet }) => {
 
     switch (action) {
       case "update":
-        updateSnippet({ id: snippet.id, ...snippetObject }).then(reset);
+        updateSnippet({ _id: snippet._id, ...snippetObject }).then(reset);
         break;
       case "create":
         addSnippet(snippetObject).then(reset);

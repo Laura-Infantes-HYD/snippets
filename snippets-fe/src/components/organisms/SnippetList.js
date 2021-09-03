@@ -37,9 +37,9 @@ const SnippetList = () => {
         searchValue={searchTerm}
       />
       <ul>
-        {data.docs.map((snippet) => (
-          <Snippet key={snippet.id} snippet={snippet}></Snippet>
-        ))}
+        {data.docs.map((snippet) => {
+          return <Snippet key={snippet._id} snippet={snippet}></Snippet>;
+        })}
       </ul>
       <Pagination data={data} q={searchTerm} tags={tags} />
     </>

@@ -24,16 +24,16 @@ const endpoints = (builder) => ({
   }),
 
   removeSnippet: builder.mutation({
-    query: (id) => ({
-      url: `snippets/${id}`,
+    query: (_id) => ({
+      url: `snippets/${_id}`,
       method: "DELETE",
     }),
     invalidatesTags: ["Snippets"],
   }),
 
   updateSnippet: builder.mutation({
-    query: ({ id, ...patch }) => ({
-      url: `snippets/${id}`,
+    query: ({ _id, ...patch }) => ({
+      url: `snippets/${_id}`,
       method: "PATCH",
       body: patch,
     }),

@@ -40,11 +40,8 @@ router.post("/", async (req, res) => {
 router.patch("/:id", getSnippet, async (req, res) => {
   //Modify all requested properties
   for (const key in req.body) {
-    if (res.snippet[key]) {
-      res.snippet[key] = req.body[key];
-    }
+    res.snippet[key] = req.body[key];
   }
-
   try {
     const patchedSnippet = await res.snippet.save();
     res.json(patchedSnippet);

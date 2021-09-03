@@ -27,7 +27,7 @@ const SnippetListItem = styled.li`
 `;
 
 const Snippet = ({
-  snippet: { id, name, snippet, tags, language, isFavourite = false },
+  snippet: { _id, name, snippet, tags, language, isFavourite = false },
   favouritePage = false,
 }) => {
   const [code, setCode] = useState("");
@@ -48,13 +48,13 @@ const Snippet = ({
         </ul>
         <pre
           className="hljs"
-          id={`snippet${id}`}
+          id={`snippet${_id}`}
           dangerouslySetInnerHTML={{
             __html: code,
           }}
         />
         <SnippetActions
-          snippet={{ id, name, snippet, tags, language, isFavourite }}
+          snippet={{ _id, name, snippet, tags, language, isFavourite }}
           favouritePage={favouritePage}
         />
       </SnippetListItem>
