@@ -8,20 +8,26 @@ import Button from "../atoms/Button";
 import Heart from "../atoms/Heart";
 import AddSnippet from "./AddSnippet";
 import styled from "styled-components";
+import Loader from "../atoms/Loader";
 
 const SnippetActionsWrap = styled.div`
   position: absolute;
+  display: flex;
   top: 0;
   right: 0;
   button {
     margin-left: ${({ theme }) => theme.spacerXs};
+  }
+
+  .loading {
+    padding: 0.25rem 0.63rem;
   }
 `;
 
 const SnippetActions = ({ snippet, favouritePage }) => {
   const { _id, isFavourite } = snippet;
   const [removeSnippet] = useRemoveSnippetMutation();
-  const [updateSnippet] = useUpdateSnippetMutation();
+  const [updateSnippet, { isLoading: isUpdating }] = useUpdateSnippetMutation();
   const [showDeletingModal, setShowDeletingModal] = useState(false);
   const [showEditingModal, setShowEditingModal] = useState(false);
   const deleteSnippet = () => {
@@ -52,8 +58,10 @@ const SnippetActions = ({ snippet, favouritePage }) => {
             }}
             text=""
             label="Add to favourites"
+            className={isUpdating ? "loading" : ""}
           >
-            <Heart />
+            {isUpdating && <Loader />}
+            {!isUpdating && <Heart />}
           </Button>
         )}
       </SnippetActionsWrap>

@@ -5,6 +5,7 @@ import { useGetSnippetsQuery } from "../../services/snippets";
 import SnippetListActions from "./SnippetListActions";
 import useQuery from "../../hooks/useQuery";
 import Pagination from "../molecules/Pagination";
+import styled from "styled-components";
 
 const SnippetList = () => {
   const searchQuery = useQuery("q");
@@ -24,7 +25,6 @@ const SnippetList = () => {
     setSearchTerm(searchQuery);
   }, [pageQuery, searchQuery]);
 
-  if (isLoading) return <Loader />;
   if (error) return error.message;
 
   return (
@@ -36,11 +36,14 @@ const SnippetList = () => {
         }}
         searchValue={searchTerm}
       />
-      <ul>
-        {data.docs.map((snippet) => {
-          return <Snippet key={snippet._id} snippet={snippet}></Snippet>;
-        })}
-      </ul>
+      {isLoading && <Loader />}
+      {data.docs && (
+        <ul>
+          {data.docs.map((snippet) => {
+            return <Snippet key={snippet._id} snippet={snippet}></Snippet>;
+          })}
+        </ul>
+      )}
       <Pagination data={data} q={searchTerm} tags={tags} />
     </>
   );
