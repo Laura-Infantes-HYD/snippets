@@ -19,9 +19,7 @@ const SnippetActionsWrap = styled.div`
     margin-left: ${({ theme }) => theme.spacerXs};
   }
 
-  .loading {
-    padding: 0.25rem 0.63rem;
-  }
+  padding: 0.25rem 0.63rem;
 `;
 
 const SnippetActions = ({ snippet, favouritePage }) => {
@@ -58,7 +56,6 @@ const SnippetActions = ({ snippet, favouritePage }) => {
             }}
             text=""
             label="Add to favourites"
-            className={isUpdating ? "loading" : ""}
           >
             {isUpdating && <Loader />}
             {!isUpdating && <Heart />}
