@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useGetTagsQuery } from "../../services/snippets";
 import Checkbox from "../atoms/Checkbox";
 
 const Tags = styled.fieldset`
@@ -17,23 +18,16 @@ const Tags = styled.fieldset`
 `;
 
 const TagsSelector = ({ forwardedRef, initiallySelected }) => {
-  const hardCodedTags = [
-    "CRO",
-    "Helper",
-    "Redux",
-    "Frontend",
-    "Backend",
-    "Node",
-  ];
+  const { data = [] } = useGetTagsQuery();
 
   return (
     <Tags ref={forwardedRef}>
       <legend>Tags</legend>
-      {hardCodedTags.map((tag) => (
+      {data.map((item) => (
         <Checkbox
-          key={tag}
-          label={tag}
-          checked={initiallySelected.includes(tag)}
+          key={item._id}
+          label={item.tag}
+          checked={initiallySelected.includes(item.tag)}
         />
       ))}
     </Tags>

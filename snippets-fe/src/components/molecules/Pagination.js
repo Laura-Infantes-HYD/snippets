@@ -86,29 +86,37 @@ const Pagination = ({ data, q, tags }) => {
 
   return (
     <PageNavigation>
-      {page > 1 && (
-        <Link to={buildLocationObj(1)} className="arrow skip">
-          <Previous />
-        </Link>
-      )}
-      {hasPrevPage && (
-        <Link to={buildLocationObj(page - 1)} className="arrow previous">
-          <Arrow title="previous page" />
-          {/* {page > 3 && <p className="dots--prev">...</p>} */}
-        </Link>
-      )}
+      <Link to={buildLocationObj(1)} className="arrow skip" isActive={page > 1}>
+        <Previous />
+      </Link>
+
+      <Link
+        to={buildLocationObj(page - 1)}
+        className="arrow previous"
+        isActive={!hasPrevPage}
+      >
+        <Arrow title="previous page" />
+        {/* {page > 3 && <p className="dots--prev">...</p>} */}
+      </Link>
+
       {pageNumbers}
-      {hasNextPage && (
-        <Link to={buildLocationObj(page + 1)} className="arrow next">
-          {/* {page < totalPages - 2 && <p className="dots--next">...</p>} */}
-          <Arrow title="next page" />
-        </Link>
-      )}
-      {page < totalPages && (
-        <Link to={buildLocationObj(totalPages)} className="arrow skip next">
-          <Previous />
-        </Link>
-      )}
+
+      <Link
+        to={buildLocationObj(page + 1)}
+        className="arrow next"
+        isActive={!hasNextPage}
+      >
+        {/* {page < totalPages - 2 && <p className="dots--next">...</p>} */}
+        <Arrow title="next page" />
+      </Link>
+
+      <Link
+        to={buildLocationObj(totalPages)}
+        className="arrow skip next"
+        isActive={!(page < totalPages)}
+      >
+        <Previous />
+      </Link>
     </PageNavigation>
   );
 };

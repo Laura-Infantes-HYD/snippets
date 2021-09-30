@@ -44,6 +44,11 @@ const endpoints = (builder) => ({
     query: () => "languages",
     providesTags: ["Languages"],
   }),
+
+  getTags: builder.query({
+    query: () => "tags",
+    providesTags: ["Tags"],
+  }),
 });
 
 // Define a service using a base URL and expected endpoints
@@ -56,7 +61,7 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Snippets", "Languages", "Favourites"],
+  tagTypes: ["Snippets", "Languages", "Favourites", "Tags"],
   endpoints: endpoints,
 });
 
@@ -69,5 +74,5 @@ export const {
   useGetLanguagesQuery,
   useUpdateSnippetMutation,
   useGetFavouriteSnippetsQuery,
-  useFindSnippetsQuery,
+  useGetTagsQuery,
 } = baseApi;
