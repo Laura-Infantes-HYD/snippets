@@ -21,4 +21,7 @@ app.use("/snippets", snippetsRouter);
 const tagsRouter = require("./routes/tags");
 app.use("/tags", tagsRouter);
 
+const languagesRouter = require("./routes/languages");
+app.use("/languages", languagesRouter);
+
 app.listen(8000, () => console.log("server started"));
