@@ -42,6 +42,7 @@ const endpoints = (builder) => ({
 
   getLanguages: builder.query({
     query: () => "languages",
+    transformResponse: (data) => data.map(({ language }) => language),
     providesTags: ["Languages"],
   }),
 
