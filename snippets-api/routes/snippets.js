@@ -13,6 +13,14 @@ router.get("/", async (req, res) => {
     query.name = new RegExp(searchQueries.q, "i");
   }
 
+  if (searchQueries.tags) {
+    const tags = searchQueries.tags;
+    console.log("tags: ", tags);
+    console.log("tags split: ", tags.split("%"));
+    query.tags = { $and: tags.split("%") };
+    console.log("query: ", query);
+  }
+
   try {
     const snippets = await Snippet.paginate(query, {
       limit: 4,
