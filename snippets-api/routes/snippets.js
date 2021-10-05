@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Snippet = require("../models/Snippet");
 
-// Get all snippets
+// Get all snippets aa
 router.get("/", async (req, res) => {
   const { page, ...searchQueries } = req.query;
   const { q, ...query } = {
