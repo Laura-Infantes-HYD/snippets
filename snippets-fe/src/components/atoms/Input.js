@@ -10,6 +10,7 @@ const TextInput = styled.input`
 `;
 
 const Input = ({
+  type = "text",
   label,
   placeholder = "",
   forwardedRef,
@@ -20,7 +21,7 @@ const Input = ({
     <label>
       {label}
       <TextInput
-        type="text"
+        type={type}
         placeholder={placeholder}
         ref={forwardedRef}
         defaultValue={defaultValue}

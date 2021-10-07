@@ -15,10 +15,7 @@ router.get("/", async (req, res) => {
 
   if (searchQueries.tags) {
     const tags = searchQueries.tags;
-    console.log("tags: ", tags);
-    console.log("tags split: ", tags.split("%"));
     query.tags = { $and: tags.split("%") };
-    console.log("query: ", query);
   }
 
   try {

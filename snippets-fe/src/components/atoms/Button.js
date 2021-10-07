@@ -22,6 +22,7 @@ let Button = ({
 };
 
 Button = styled(Button)`
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   padding: 1rem 1.25rem;
   background:  ${({ disabled, theme, btnType }) =>
     disabled ? theme.inactive : theme[btnType]}};

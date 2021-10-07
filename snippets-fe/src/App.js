@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Header from "./components/organisms/Header";
 import Favourites from "./components/templates/Favourites";
+import Signup from "./components/templates/Signup";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/snippets">
             <Home />
+          </Route>
+          <Route path="/sign-up">
+            <Signup />
           </Route>
           <Route exact path="/">
             <Redirect to="/snippets" />
