@@ -24,4 +24,7 @@ app.use("/tags", tagsRouter);
 const languagesRouter = require("./routes/languages");
 app.use("/languages", languagesRouter);
 
+const usersRouter = require("./routes/users");
+app.use("/users", usersRouter);
+
 app.listen(8000, () => console.log("server started"));
