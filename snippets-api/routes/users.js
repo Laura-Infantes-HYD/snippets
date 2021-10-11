@@ -2,34 +2,17 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const nodemailer = require("nodemailer");
-
-const transportConfig = {
-  host: "smtp-mail.outlook.com",
-  port: 587,
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: "laura.infantes.seg@outlook.com", // generated ethereal user
-    pass: "Iwanttos3g123", // generated ethereal password
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-};
-
-const emailOptions = {
-  from: "Snippets app <laura.infantes.seg@outlook.com>",
-  to: "lauralopezinfantes@gmail.com",
-  subject: "Confirm your snippets app account",
-  text: "This is a test email",
-};
+const Transport = require("../email-config/transporter-config");
 
 // Create user
 router.post("/", userExists, async (req, res) => {
-  //Send confirmation email
-  const transporter = nodemailer.createTransport(transportConfig);
-  emailOptions.to = req.email;
+  const transport = new Transport();
 
-  transporter.sendMail(emailOptions, async (error, info) => {
+  //Send confirmation email
+  const transporter = nodemailer.createTransport(transport.config);
+  transport.emailOptions.to = req.body.email;
+
+  transporter.sendMail(transport.emailOptions, async (error, info) => {
     if (error) return res.status(500).send({ message: error.message });
 
     //Create new user
