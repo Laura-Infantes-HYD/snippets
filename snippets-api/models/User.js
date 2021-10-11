@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
   isConfirmed: {
     type: String,
     required: true,
+    default: false,
   },
 });
 
