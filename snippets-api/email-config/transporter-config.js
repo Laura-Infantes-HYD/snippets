@@ -1,7 +1,12 @@
+require("dotenv").config({ path: __dirname + "/.env" });
+const jwt = require("jsonwebtoken");
+
 module.exports = class Transport {
-  constructor() {
+  constructor({ email, id }) {
     this.transportConfig;
     this.emailOptions;
+    this.emailAddress = email;
+    this.id = id;
   }
 
   config = {
@@ -9,17 +14,30 @@ module.exports = class Transport {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "laura.infantes.seg@outlook.com", // generated ethereal user
-      pass: "Iwanttos3g123", // generated ethereal password
+      user: "snippets.app@outlook.com", // generated ethereal user
+      pass: process.env.EMAIL_PASS, // generated ethereal password
     },
     tls: {
       rejectUnauthorized: false,
     },
   };
+
   emailOptions = {
-    from: "Snippets app <laura.infantes.seg@outlook.com>",
-    to: "lauralopezinfantes@gmail.com",
+    from: "Snippets app <snippets.app@outlook.com>",
     subject: "Confirm your snippets app account",
-    text: "This is a test email",
   };
+
+  getEmailOptions() {
+    const confirmationToken = jwt.sign(
+      { id: this.id },
+      process.env.CONFIRMATION_TOKEN_SECRET
+    );
+    const link = `${process.env.SITE_URL}/users/confirm/${confirmationToken}`;
+
+    return {
+      ...this.emailOptions,
+      to: this.emailAddress,
+      text: `Follow this link to confirm your email adress ${link}`,
+    };
+  }
 };
