@@ -22,4 +22,6 @@ module.exports = {
   md: "500px",
   lg: "980px",
   xl: "1280px",
+
+  fontMd: "1.25rem",
 };

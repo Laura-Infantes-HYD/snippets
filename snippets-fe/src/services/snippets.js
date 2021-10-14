@@ -50,6 +50,15 @@ const endpoints = (builder) => ({
     query: () => "tags",
     providesTags: ["Tags"],
   }),
+
+  createUser: builder.mutation({
+    query: (body) => ({
+      url: `users`,
+      method: "POST",
+      body,
+    }),
+    invalidatesTags: ["User"],
+  }),
 });
 
 // Define a service using a base URL and expected endpoints
@@ -76,4 +85,5 @@ export const {
   useUpdateSnippetMutation,
   useGetFavouriteSnippetsQuery,
   useGetTagsQuery,
+  useCreateUserMutation,
 } = baseApi;

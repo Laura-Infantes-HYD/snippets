@@ -1,11 +1,14 @@
 import React, { useRef, useReducer, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../atoms/Button";
+import Loader from "../atoms/Loader";
 import Input from "../atoms/Input";
 import { PositionToRight } from "../atoms/PositionToRight";
 import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
+import { useCreateUserMutation } from "../../services/snippets";
+import { useHistory } from "react-router";
 
 const FormWrap = styled.form`
   background: ${({ theme }) => theme.secondaryDark};
@@ -16,6 +19,7 @@ const FormWrap = styled.form`
 const SignupForm = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const formRef = useRef(null);
   const messages = {
     email: { required: "Provide an email address", invalid: "Invalid email" },
     password: {
@@ -42,6 +46,8 @@ const SignupForm = () => {
     }
   };
   const [errors, dispatch] = useReducer(errorReducer, initialFormErrState);
+  const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
+  const history = useHistory();
 
   const signUp = (e) => {
     e.preventDefault();
@@ -59,11 +65,17 @@ const SignupForm = () => {
     if (!passwordValid) dispatch({ type: "password error" });
 
     if (errors.formValid) {
+      createUser({ email, password }).then(createUserSuccess);
     }
   };
 
+  const createUserSuccess = () => {
+    formRef.current.reset();
+    history.push("/user-created-success");
+  };
+
   return (
-    <FormWrap>
+    <FormWrap ref={formRef}>
       <Input
         label="Email"
         forwardedRef={emailRef}
@@ -73,6 +85,7 @@ const SignupForm = () => {
       <Input label="Password" forwardedRef={passwordRef} />
       <p>{errors.password}</p>
       <br></br>
+      {isCreating && <Loader></Loader>}
       <PositionToRight>
         <p>{`${errors.formValid}`}</p>
         <Button

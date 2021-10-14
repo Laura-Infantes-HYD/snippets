@@ -12,23 +12,27 @@ import {
 import Header from "./components/organisms/Header";
 import Favourites from "./components/templates/Favourites";
 import Signup from "./components/templates/Signup";
+import MessageScreen from "./components/templates/MessageScreen";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Header />
         <Switch>
           <Route path="/favourites">
+            <Header />
             <Favourites />
           </Route>
           <Route path="/snippets">
+            <Header />
             <Home />
           </Route>
           <Route path="/sign-up">
             <Signup />
           </Route>
+          <Route path="/message/:type" component={MessageScreen} />
           <Route exact path="/">
+            <Header />
             <Redirect to="/snippets" />
           </Route>
         </Switch>
