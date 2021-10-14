@@ -1,22 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../atoms/Card";
-
-const Message = styled.section`
-  height: 80vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  h1 {
-    margin-bottom: ${({ theme }) => theme.spacerMd};
-  }
-  p {
-    font-size: ${({ theme }) => theme.fontMd};
-    line-height: ${({ theme }) => theme.spacerMd};
-  }
-`;
+import CentralMessage from "../atoms/CentralMessage";
 
 const messages = {
   "confirmation-sent": {
@@ -31,12 +16,12 @@ const MessageScreen = (props) => {
 
   return (
     <main>
-      <Message>
+      <CentralMessage>
         <div className="message-content">
           <h1>{header}</h1>
           <p>{body}</p>
         </div>
-      </Message>
+      </CentralMessage>
     </main>
   );
 };

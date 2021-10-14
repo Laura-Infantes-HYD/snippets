@@ -13,6 +13,7 @@ import Header from "./components/organisms/Header";
 import Favourites from "./components/templates/Favourites";
 import Signup from "./components/templates/Signup";
 import MessageScreen from "./components/templates/MessageScreen";
+import ConfirmAccount from "./components/templates/ConfirmAccount";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/sign-up">
             <Signup />
           </Route>
+          <Route path="/confirm/:token" component={ConfirmAccount} />
           <Route path="/message/:type" component={MessageScreen} />
           <Route exact path="/">
             <Header />

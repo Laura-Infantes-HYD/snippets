@@ -32,7 +32,7 @@ module.exports = class Transport {
       { id: this.id },
       process.env.CONFIRMATION_TOKEN_SECRET
     );
-    const link = `${process.env.SITE_URL}/users/confirm/${confirmationToken}`;
+    const link = `${process.env.SITE_URL}/confirm/${confirmationToken}`;
 
     return {
       ...this.emailOptions,

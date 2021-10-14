@@ -59,6 +59,15 @@ const endpoints = (builder) => ({
     }),
     invalidatesTags: ["User"],
   }),
+
+  createUser: builder.mutation({
+    query: (body) => ({
+      url: `users`,
+      method: "POST",
+      body,
+    }),
+    invalidatesTags: ["User"],
+  }),
 });
 
 // Define a service using a base URL and expected endpoints
