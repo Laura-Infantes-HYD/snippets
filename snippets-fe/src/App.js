@@ -14,6 +14,7 @@ import Favourites from "./components/templates/Favourites";
 import Signup from "./components/templates/Signup";
 import MessageScreen from "./components/templates/MessageScreen";
 import ConfirmAccount from "./components/templates/ConfirmAccount";
+import SignupValidationProvider from "./providers/SignupValidationProvider";
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
             <Home />
           </Route>
           <Route path="/sign-up">
-            <Signup />
+            <SignupValidationProvider>
+              <Signup />
+            </SignupValidationProvider>
           </Route>
           <Route path="/confirm/:token" component={ConfirmAccount} />
           <Route path="/message/:type" component={MessageScreen} />
