@@ -6,7 +6,7 @@ const Transport = require("../email-config/transporter-config");
 const jwt = require("jsonwebtoken");
 
 // Create user
-router.post("/", async (req, res) => {
+router.post("/", userExists, async (req, res) => {
   const newUser = new User({ ...req.body, isConfirmed: false });
   let user;
 
@@ -61,8 +61,6 @@ async function findUserByEncryptedId(req, res, next) {
     req.params.id,
     process.env.CONFIRMATION_TOKEN_SECRET
   );
-
-  console.log("verification: ", verification);
 
   if (!verification.id) return res.status(401).json({ message: err.message });
 

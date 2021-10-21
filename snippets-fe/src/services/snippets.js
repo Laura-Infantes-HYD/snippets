@@ -60,11 +60,10 @@ const endpoints = (builder) => ({
     invalidatesTags: ["User"],
   }),
 
-  createUser: builder.mutation({
-    query: (body) => ({
-      url: `users`,
-      method: "POST",
-      body,
+  confirmUser: builder.mutation({
+    query: (id) => ({
+      url: `users/confirm/${id}`,
+      method: "PATCH",
     }),
     invalidatesTags: ["User"],
   }),
@@ -80,7 +79,7 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Snippets", "Languages", "Favourites", "Tags"],
+  tagTypes: ["Snippets", "Languages", "Favourites", "Tags", "User"],
   endpoints: endpoints,
 });
 
@@ -95,4 +94,5 @@ export const {
   useGetFavouriteSnippetsQuery,
   useGetTagsQuery,
   useCreateUserMutation,
+  useConfirmUserMutation,
 } = baseApi;
