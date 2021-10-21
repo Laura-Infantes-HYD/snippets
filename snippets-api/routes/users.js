@@ -36,6 +36,7 @@ router.patch("/confirm/:id", findUserByEncryptedId, async (req, res) => {
 
   try {
     const confirmedUser = await res.user.save();
+    delete confirmedUser["password"];
     res.json(confirmedUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
