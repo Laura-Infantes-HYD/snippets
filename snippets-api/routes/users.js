@@ -4,13 +4,18 @@ const User = require("../models/User");
 const nodemailer = require("nodemailer");
 const Transport = require("../email-config/transporter-config");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // Create user
 router.post("/", userExists, async (req, res) => {
-  const newUser = new User({ ...req.body, isConfirmed: false });
   let user;
-
   try {
+    const hashedPass = await bcrypt.hash(req.body.password, 10);
+    const newUser = new User({
+      ...req.body,
+      isConfirmed: false,
+      password: hashedPass,
+    });
     user = await newUser.save();
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -29,6 +34,22 @@ function sendConfirmationEmail(req, res, user) {
     res.json(info);
   });
 }
+
+// Login
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({ message: "Cannot find user" });
+    }
+    const isAuthorised = await bcrypt.compare(req.body.password, user.password);
+
+    if (isAuthorised) res.json(user.email);
+    if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 // confirm user
 router.patch("/confirm/:id", findUserByEncryptedId, async (req, res) => {
