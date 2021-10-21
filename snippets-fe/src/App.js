@@ -16,6 +16,7 @@ import MessageScreen from "./components/templates/MessageScreen";
 import ConfirmAccount from "./components/templates/ConfirmAccount";
 import SignupValidationProvider from "./providers/SignupValidationProvider";
 import UserProvider from "./providers/UserProvider";
+import Login from "./components/templates/Login";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 <Signup />
               </SignupValidationProvider>
             </Route>
+            <Route path="/login" component={Login} />
             <Route path="/confirm/:token" component={ConfirmAccount} />
             <Route path="/message/:type" component={MessageScreen} />
             <Route exact path="/">

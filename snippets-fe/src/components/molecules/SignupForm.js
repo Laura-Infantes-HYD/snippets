@@ -10,11 +10,13 @@ import isLength from "validator/lib/isLength";
 import { useCreateUserMutation } from "../../services/snippets";
 import { useHistory } from "react-router";
 import { SignupValidationContext } from "../../providers/SignupValidationProvider";
+import FormWrapper from "../atoms/FormWrapper";
 
-const FormWrap = styled.form`
-  background: ${({ theme }) => theme.secondaryDark};
-  padding: 2rem 3rem;
-  border-radius: 1rem;
+const Heading = styled.h1`
+  width: 100%;
+  text-align: center;
+  margin-top: ${({ theme }) => theme.spacerMd};
+  margin-bottom: ${({ theme }) => theme.spacerMd};
 `;
 
 const SignupForm = () => {
@@ -49,28 +51,30 @@ const SignupForm = () => {
   };
 
   return (
-    <FormWrap ref={formRef}>
-      <Input
-        label="Email"
-        forwardedRef={emailRef}
-        placeholder="example@email.com"
-      />
-      <p>{errors.email}</p>
-      <Input type="password" label="Password" forwardedRef={passwordRef} />
-      <p>{errors.password}</p>
-      <br></br>
-      {isCreating && <Loader></Loader>}
-      <PositionToRight>
-        <Button
-          fullWidth
-          type="submit"
-          btnType="ctaPrimary"
-          text="Sign up"
-          onClick={signUp}
+    <>
+      <Heading>Welcome to Snippets App</Heading>
+      <FormWrapper ref={formRef}>
+        <Input
+          label="Email"
+          forwardedRef={emailRef}
+          placeholder="example@email.com"
         />
-        {`${JSON.stringify(errors)}`}
-      </PositionToRight>
-    </FormWrap>
+        <p>{errors.email}</p>
+        <Input type="password" label="Password" forwardedRef={passwordRef} />
+        <p>{errors.password}</p>
+        <br></br>
+        {isCreating && <Loader></Loader>}
+        <PositionToRight>
+          <Button
+            fullWidth
+            type="submit"
+            btnType="ctaPrimary"
+            text="Sign up"
+            onClick={signUp}
+          />
+        </PositionToRight>
+      </FormWrapper>
+    </>
   );
 };
 
