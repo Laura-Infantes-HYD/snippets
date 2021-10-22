@@ -5,6 +5,12 @@ const nodemailer = require("nodemailer");
 const Transport = require("../email-config/transporter-config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const authenticate = require("../middleware/authentication");
+
+//Get user
+router.post("/profile", authenticate, async (req, res) => {
+  res.send(res.user);
+});
 
 // Create user
 router.post("/", userExists, async (req, res) => {
@@ -43,9 +49,13 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ message: "Cannot find user" });
     }
     const isAuthorised = await bcrypt.compare(req.body.password, user.password);
+    const accessToken = jwt.sign(
+      { id: user.id },
+      process.env.ACCESS_TOKEN_SECRET
+    );
 
-    if (isAuthorised) res.json(user.email);
     if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
+    if (isAuthorised) res.send(accessToken);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
