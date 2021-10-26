@@ -9,7 +9,7 @@ const authenticate = require("../middleware/authentication");
 
 //Get user
 router.post("/profile", authenticate, async (req, res) => {
-  res.send(res.user);
+  res.json(res.user);
 });
 
 // Create user
@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
     );
 
     if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
-    if (isAuthorised) res.send(accessToken);
+    if (isAuthorised) res.json(accessToken);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
