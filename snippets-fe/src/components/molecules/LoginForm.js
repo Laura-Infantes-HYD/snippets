@@ -1,30 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import Button from "../atoms/Button";
 import FormWrapper from "../atoms/FormWrapper";
+import Loader from "../atoms/Loader";
 import Input from "../atoms/Input";
-import { PositionToRight } from "../atoms/PositionToRight";
+import { UserContext } from "../../providers/UserProvider";
 
 const LoginForm = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const formRef = useRef(null);
-  const login = () => {};
+  const { login, isLoggingIn, loginError, profile } = useContext(UserContext);
+  const loginUser = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    login({ email, password });
+  };
 
   return (
-    <FormWrapper ref={formRef}>
+    <FormWrapper>
       <Input label="Email" forwardedRef={emailRef} />
       <Input type="password" label="Password" forwardedRef={passwordRef} />
       <br></br>
-      {/* {isLoggingIn && <Loader></Loader>} */}
-      <PositionToRight>
-        <Button
-          fullWidth
-          type="submit"
-          btnType="ctaPrimary"
-          text="Login"
-          onClick={login}
-        />
-      </PositionToRight>
+      {isLoggingIn && <Loader></Loader>}
+
+      <Button
+        fullWidth
+        type="submit"
+        btnType="ctaPrimary"
+        text="Login"
+        onClick={loginUser}
+      />
+      {loginError?.message}
     </FormWrapper>
   );
 };

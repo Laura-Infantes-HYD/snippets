@@ -67,6 +67,27 @@ const endpoints = (builder) => ({
     }),
     invalidatesTags: ["User"],
   }),
+
+  login: builder.mutation({
+    query: (userCredentials) => ({
+      url: `users/login/`,
+      method: "POST",
+      body: userCredentials,
+    }),
+    invalidatesTags: ["User"],
+  }),
+
+  getProfile: builder.mutation({
+    query: (token) => ({
+      url: "/users/profile",
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }),
+
+    providesTags: ["User"],
+  }),
 });
 
 // Define a service using a base URL and expected endpoints
@@ -95,4 +116,6 @@ export const {
   useGetTagsQuery,
   useCreateUserMutation,
   useConfirmUserMutation,
+  useLoginMutation,
+  useGetProfileMutation,
 } = baseApi;
