@@ -43,7 +43,6 @@ function sendConfirmationEmail(req, res, user) {
 
 // Login
 router.post("/login", async (req, res) => {
-
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -51,15 +50,13 @@ router.post("/login", async (req, res) => {
     }
 
     const isAuthorised = await bcrypt.compare(req.body.password, user.password);
-    console.log('isAuthorised: ', isAuthorised);
 
     if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
 
     const accessToken = jwt.sign(
       { id: user.id },
       process.env.ACCESS_TOKEN_SECRET
-      );
-      console.log('accessToken: ', accessToken);
+    );
     if (isAuthorised) res.json(accessToken);
   } catch (error) {
     res.status(500).json({ message: error.message });

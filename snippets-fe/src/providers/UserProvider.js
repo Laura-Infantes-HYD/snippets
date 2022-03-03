@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useConfirmUserMutation,
   useGetProfileMutation,
@@ -13,10 +13,8 @@ const UserProvider = ({ children }) => {
   const [token, setToken] = useLocalStorage("access_token");
   const [login, { isLoading: isLoggingIn, error: loginError }] =
     useLoginMutation();
-  const [
-    getProfile,
-    { isLoading: fetchingProfile, error: profileError, data: profile },
-  ] = useGetProfileMutation();
+  const [getProfile, { data: profile, isSuccess: isProfileFetchSuccess }] =
+    useGetProfileMutation();
   const [
     confirmUser,
     {
@@ -30,7 +28,7 @@ const UserProvider = ({ children }) => {
   const loginUser = (user) => {
     login(user).then(({ data: token }) => {
       if (token) setToken(token);
-      getProfile(token).then((res) => console.log("profile", res));
+      getProfile(token);
     });
   };
 
@@ -48,6 +46,7 @@ const UserProvider = ({ children }) => {
         login: loginUser,
         loginError,
         isLoggingIn,
+        isProfileFetchSuccess,
       }}
     >
       {children}
