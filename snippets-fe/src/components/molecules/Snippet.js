@@ -30,6 +30,7 @@ const Snippet = ({
   snippet: { _id, name, snippet, tags, language, isFavourite = false },
   favouritePage = false,
 }) => {
+  console.log("snippet in snipet component: ", snippet);
   const [code, setCode] = useState("");
   useEffect(() => {
     const hljs = require("highlight.js");

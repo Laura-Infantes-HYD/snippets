@@ -20,11 +20,17 @@ router.get("/", authenticate, async (req, res) => {
   }
 
   try {
-    const snippets = await Snippet.paginate(query, {
-      limit: 4,
-      page: page || 1,
-    });
-    res.json(snippets);
+    const user = await res.user.populate([
+      {
+        path: "snippets",
+        options: {
+          skip: page || 0,
+          limit: 4,
+        },
+      },
+    ]);
+
+    res.json(user.snippets);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

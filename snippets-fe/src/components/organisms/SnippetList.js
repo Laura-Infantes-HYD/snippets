@@ -27,6 +27,7 @@ const SnippetList = () => {
 
   if (error) return error.message;
 
+  console.log("data: ", data);
   return (
     <>
       <SnippetListActions
@@ -34,12 +35,12 @@ const SnippetList = () => {
           setSearchTerm(term);
           setPage(null); //resets to first page after search
         }}
-        searchValue={searchTerm}
+        searchValue={searchTerm || ""}
       />
       {isLoading && <Loader />}
-      {data.docs && (
+      {data && (
         <ul>
-          {data.docs.map((snippet) => {
+          {data.map((snippet) => {
             return <Snippet key={snippet._id} snippet={snippet}></Snippet>;
           })}
         </ul>
