@@ -46,7 +46,6 @@ const SignupForm = () => {
   };
 
   const createUserSuccess = () => {
-    formRef.current.reset();
     history.push("/message/confirmation-sent");
   };
 

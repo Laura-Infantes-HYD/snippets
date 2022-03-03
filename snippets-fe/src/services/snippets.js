@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import buildUrl from "../utils/buildUrl";
+
+function getToken() {
+  return localStorage.getItem("access_token");
+}
 
 const endpoints = (builder) => ({
   getSnippets: builder.query({
@@ -78,11 +83,11 @@ const endpoints = (builder) => ({
   }),
 
   getProfile: builder.mutation({
-    query: (token) => ({
+    query: () => ({
       url: "/users/profile",
       method: "POST",
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${getToken()}`,
       },
     }),
 
@@ -90,7 +95,7 @@ const endpoints = (builder) => ({
   }),
 });
 
-// Define a service using a base URL and expected endpoints
+// Define a service
 export const baseApi = createApi({
   reducerPath: "snippetsApi",
   baseQuery: fetchBaseQuery({

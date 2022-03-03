@@ -17,37 +17,41 @@ import ConfirmAccount from "./components/templates/ConfirmAccount";
 import SignupValidationProvider from "./providers/SignupValidationProvider";
 import UserProvider from "./providers/UserProvider";
 import Login from "./components/templates/Login";
+import { Provider as StateProvider } from "react-redux";
+import rootStore from "./app/root.store";
 
 function App() {
   return (
-    <UserProvider>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route path="/favourites">
-              <Header />
-              <Favourites />
-            </Route>
-            <Route path="/snippets">
-              <Header />
-              <Home />
-            </Route>
-            <Route path="/sign-up">
-              <SignupValidationProvider>
-                <Signup />
-              </SignupValidationProvider>
-            </Route>
-            <Route path="/login" component={Login} />
-            <Route path="/confirm/:token" component={ConfirmAccount} />
-            <Route path="/message/:type" component={MessageScreen} />
-            <Route exact path="/">
-              <Header />
-              <Redirect to="/snippets" />
-            </Route>
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </UserProvider>
+    <StateProvider store={rootStore}>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Switch>
+              <Route path="/favourites">
+                <Header />
+                <Favourites />
+              </Route>
+              <Route path="/snippets">
+                <Header />
+                <Home />
+              </Route>
+              <Route path="/sign-up">
+                <SignupValidationProvider>
+                  <Signup />
+                </SignupValidationProvider>
+              </Route>
+              <Route path="/login" component={Login} />
+              <Route path="/confirm/:token" component={ConfirmAccount} />
+              <Route path="/message/:type" component={MessageScreen} />
+              <Route exact path="/">
+                <Header />
+                <Redirect to="/snippets" />
+              </Route>
+            </Switch>
+          </Router>
+        </ThemeProvider>
+      </UserProvider>
+    </StateProvider>
   );
 }
 

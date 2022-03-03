@@ -37,31 +37,36 @@ function sendConfirmationEmail(req, res, user) {
   const transporter = nodemailer.createTransport(transport.config);
   transporter.sendMail(transport.getEmailOptions(), async (error, info) => {
     if (error) return res.status(500).send({ message: error.message });
-    res.json(info);
+    res.json(`Success: confirmation email sent to ${info.email}`);
   });
 }
 
 // Login
 router.post("/login", async (req, res) => {
+
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(404).json({ message: "Cannot find user" });
     }
+
     const isAuthorised = await bcrypt.compare(req.body.password, user.password);
+    console.log('isAuthorised: ', isAuthorised);
+
+    if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
+
     const accessToken = jwt.sign(
       { id: user.id },
       process.env.ACCESS_TOKEN_SECRET
-    );
-
-    if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
+      );
+      console.log('accessToken: ', accessToken);
     if (isAuthorised) res.json(accessToken);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// confirm user
+// Confirm user
 router.patch("/confirm/:id", findUserByEncryptedId, async (req, res) => {
   res.user.isConfirmed = true;
 
