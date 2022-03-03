@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema, Types } = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  snippets: [{ type: Schema.Types.ObjectId, ref: "Snippet" }],
 });
 
 module.exports = mongoose.model("User", userSchema);

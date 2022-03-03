@@ -1,9 +1,10 @@
 const express = require("express");
+const authenticate = require("../middleware/authentication");
 const router = express.Router();
 const Snippet = require("../models/Snippet");
 
-// Get all snippets aa
-router.get("/", async (req, res) => {
+// Get all snippets
+router.get("/", authenticate, async (req, res) => {
   const { page, ...searchQueries } = req.query;
   const { q, ...query } = {
     ...searchQueries,
@@ -30,19 +31,23 @@ router.get("/", async (req, res) => {
 });
 
 // Post snippet
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   const newSnippet = new Snippet(req.body);
 
   try {
     const snippet = await newSnippet.save();
-    res.json(snippet);
+    res.user.snippets.push(snippet.id);
+
+    //Add snippet id to user profile
+    const user = await res.user.save();
+    res.json(user.snippets);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
 // Patch snippet
-router.patch("/:id", getSnippet, async (req, res) => {
+router.patch("/:id", [authenticate, getSnippet], async (req, res) => {
   //Modify all requested properties
   for (const key in req.body) {
     res.snippet[key] = req.body[key];
@@ -56,7 +61,7 @@ router.patch("/:id", getSnippet, async (req, res) => {
 });
 
 // Delete snippet
-router.delete("/:id", getSnippet, async (req, res) => {
+router.delete("/:id", [authenticate, getSnippet], async (req, res) => {
   try {
     const deletedSnippet = await res.snippet.remove();
     res.json({ message: `Deleted snippet: ${deletedSnippet.id}` });

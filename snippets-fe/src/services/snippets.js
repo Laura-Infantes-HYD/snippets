@@ -102,6 +102,7 @@ export const baseApi = createApi({
     baseUrl: "http://localhost:8000",
     prepareHeaders(headers) {
       headers.set("content-type", "application/json");
+      headers.set("authorization", `Bearer ${getToken()}`);
       return headers;
     },
   }),

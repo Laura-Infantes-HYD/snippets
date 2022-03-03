@@ -21,12 +21,12 @@ const Logo = styled.div`
 `;
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { profile } = useContext(UserContext);
   return (
     <MainHeader className="App-header">
       <Logo>
         <Link to="/">My Snippets</Link>
-        {user && <p>Hello {user.email}</p>}
+        {profile && <p>Hello {profile.email}</p>}
       </Logo>
       <Navigation />
     </MainHeader>

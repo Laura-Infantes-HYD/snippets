@@ -15,16 +15,20 @@ router.post("/profile", authenticate, async (req, res) => {
 // Create user
 router.post("/", userExists, async (req, res) => {
   let user;
+
   try {
     const hashedPass = await bcrypt.hash(req.body.password, 10);
     const newUser = new User({
       ...req.body,
       isConfirmed: false,
       password: hashedPass,
+      snippets: [],
     });
+
     user = await newUser.save();
   } catch (err) {
     res.status(500).json({ message: err.message });
+
     return;
   }
 
@@ -50,7 +54,6 @@ router.post("/login", async (req, res) => {
     }
 
     const isAuthorised = await bcrypt.compare(req.body.password, user.password);
-
     if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
 
     const accessToken = jwt.sign(

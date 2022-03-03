@@ -25,7 +25,8 @@ const SignupForm = () => {
   const formRef = useRef(null);
   const { errors, dispatch } = useContext(SignupValidationContext);
 
-  const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
+  const [createUser, { isLoading: isCreating, isSuccess, error }] =
+    useCreateUserMutation();
   const history = useHistory();
 
   const signUp = (e) => {
@@ -41,13 +42,13 @@ const SignupForm = () => {
     if (emailEmpty) dispatch({ type: "no email" });
     if (!validPassword) dispatch({ type: "password error" });
 
-    if (validEmail && validPassword)
-      createUser({ email, password }).then(createUserSuccess);
+    if (validEmail && validPassword) createUser({ email, password });
   };
 
-  const createUserSuccess = () => {
-    history.push("/message/confirmation-sent");
-  };
+  useEffect(() => {
+    if (isSuccess) history.push("/message/confirmation-sent");
+    console.log("error: ", error);
+  }, [isSuccess, history, error]);
 
   return (
     <>
@@ -63,6 +64,7 @@ const SignupForm = () => {
         <p>{errors.password}</p>
         <br></br>
         {isCreating && <Loader></Loader>}
+        <div>{error?.data?.message}</div>
         <PositionToRight>
           <Button
             fullWidth

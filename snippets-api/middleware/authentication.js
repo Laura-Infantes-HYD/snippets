@@ -3,7 +3,10 @@ const User = require("../models/User");
 
 const authenticate = async (req, res, next) => {
   const token = req.headers["authorization"].replace("Bearer ", "");
-  const verification = jwt.verify(JSON.parse(token), process.env.ACCESS_TOKEN_SECRET);
+  const verification = jwt.verify(
+    JSON.parse(token),
+    process.env.ACCESS_TOKEN_SECRET
+  );
 
   if (!verification.id)
     return res.status(401).json({ message: "Authentication error" });
