@@ -38,9 +38,9 @@ const SnippetList = () => {
         searchValue={searchTerm || ""}
       />
       {isLoading && <Loader />}
-      {data && (
+      {data.docs && (
         <ul>
-          {data.map((snippet) => {
+          {data.docs.map((snippet) => {
             return <Snippet key={snippet._id} snippet={snippet}></Snippet>;
           })}
         </ul>

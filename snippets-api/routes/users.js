@@ -56,6 +56,8 @@ router.post("/login", async (req, res) => {
     const isAuthorised = await bcrypt.compare(req.body.password, user.password);
     if (!isAuthorised) res.status(401).json({ message: "Unauthorised" });
 
+    console.log("user.id : ", user.id);
+
     const accessToken = jwt.sign(
       { id: user.id },
       process.env.ACCESS_TOKEN_SECRET

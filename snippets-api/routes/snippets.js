@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const authenticate = require("../middleware/authentication");
 const router = express.Router();
 const Snippet = require("../models/Snippet");
@@ -20,17 +21,15 @@ router.get("/", authenticate, async (req, res) => {
   }
 
   try {
-    const user = await res.user.populate([
-      {
-        path: "snippets",
-        options: {
-          skip: page || 0,
-          limit: 4,
-        },
-      },
-    ]);
+    const ids = res.user.snippets.map((id) => mongoose.Types.ObjectId(id));
 
-    res.json(user.snippets);
+    const snippets = await Snippet.paginate(query, {
+      limit: 4,
+      page: page || 1,
+      options: { _id: { $in: [ids] } },
+    });
+
+    res.json(snippets);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

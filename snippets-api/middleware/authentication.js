@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const authenticate = async (req, res, next) => {
-  const token = req.headers["authorization"].replace("Bearer ", "");
-  const verification = jwt.verify(
-    JSON.parse(token),
-    process.env.ACCESS_TOKEN_SECRET
-  );
+  const token = req.headers.authorization
+    .replace("Bearer ", "")
+    .replace(/\"/g, "");
+
+  const verification = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
   if (!verification.id)
     return res.status(401).json({ message: "Authentication error" });
