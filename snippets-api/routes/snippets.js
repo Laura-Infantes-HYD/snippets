@@ -6,10 +6,12 @@ const Snippet = require("../models/Snippet");
 
 // Get all snippets
 router.get("/", authenticate, async (req, res) => {
-  const { page, ...searchQueries } = req.query;
+  const { page: pageStr = 1, ...searchQueries } = req.query;
   const { q, ...query } = {
     ...searchQueries,
   };
+
+  page = parseInt(pageStr);
 
   if (searchQueries.q) {
     query.name = new RegExp(searchQueries.q, "i");
@@ -21,15 +23,26 @@ router.get("/", authenticate, async (req, res) => {
   }
 
   try {
-    const ids = res.user.snippets.map((id) => mongoose.Types.ObjectId(id));
+    const itemsPerPage = 4;
+    const idQuery = { $in: res.user.snippets };
+    const snippets = await Snippet.find({
+      _id: idQuery,
+    })
+      .skip(itemsPerPage * (page - 1))
+      .limit(itemsPerPage);
 
-    const snippets = await Snippet.paginate(query, {
-      limit: 4,
-      page: page || 1,
-      options: { _id: { $in: [ids] } },
+    const count = await Snippet.count({ _id: idQuery });
+    const totalPages = Math.ceil(count / itemsPerPage);
+    const hasNextPage = page < totalPages;
+    const hasPrevPage = page > 1;
+
+    res.json({
+      docs: snippets,
+      hasNextPage,
+      hasPrevPage,
+      page,
+      totalPages,
     });
-
-    res.json(snippets);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
