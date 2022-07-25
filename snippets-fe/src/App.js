@@ -19,6 +19,7 @@ import UserProvider from "./providers/UserProvider";
 import Login from "./components/templates/Login";
 import { Provider as StateProvider } from "react-redux";
 import rootStore from "./app/root.store";
+import ProtectedRoute from "./components/templates/ProtectedRoute";
 
 function App() {
   return (
@@ -31,10 +32,9 @@ function App() {
                 <Header />
                 <Favourites />
               </Route>
-              <Route path="/snippets">
-                <Header />
+              <ProtectedRoute path="/snippets">
                 <Home />
-              </Route>
+              </ProtectedRoute>
               <Route path="/sign-up">
                 <SignupValidationProvider>
                   <Signup />
@@ -43,10 +43,10 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/confirm/:token" component={ConfirmAccount} />
               <Route path="/message/:type" component={MessageScreen} />
-              <Route exact path="/">
+              <ProtectedRoute path="/">
                 <Header />
                 <Redirect to="/snippets" />
-              </Route>
+              </ProtectedRoute>
             </Switch>
           </Router>
         </ThemeProvider>
