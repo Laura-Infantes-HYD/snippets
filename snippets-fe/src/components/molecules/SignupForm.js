@@ -1,16 +1,17 @@
-import React, { useRef, useContext, useReducer, useEffect } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useReducer, useRef } from "react";
+
 import Button from "../atoms/Button";
-import Loader from "../atoms/Loader";
+import FormWrapper from "../atoms/FormWrapper";
 import Input from "../atoms/Input";
+import Loader from "../atoms/Loader";
 import { PositionToRight } from "../atoms/PositionToRight";
+import { SignupValidationContext } from "../../providers/SignupValidationProvider";
 import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
+import styled from "styled-components";
 import { useCreateUserMutation } from "../../services/snippets";
 import { useHistory } from "react-router";
-import { SignupValidationContext } from "../../providers/SignupValidationProvider";
-import FormWrapper from "../atoms/FormWrapper";
 
 const Heading = styled.h1`
   width: 100%;
@@ -46,7 +47,7 @@ const SignupForm = () => {
   };
 
   const createUserSuccess = () => {
-    formRef.current.reset();
+    formRef?.current?.reset();
     history.push("/message/confirmation-sent");
   };
 
